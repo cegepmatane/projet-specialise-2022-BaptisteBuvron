@@ -15,7 +15,7 @@ Voici le lien vers la [fiche de lancement Kickoff du projet](https://docs.google
 Voici le lien vers la [fiche de recherches successives](https://docs.google.com/presentation/d/1HfUESV6LpRq6pl4fzoU8J6BGbMtSDdoT0ULGW-u99Ks/edit?usp=sharing)
 
 ### Grilles de comparaison
-Voici le lien vers les grilles de comparaions (en cours)
+Voici le lien vers [les grilles de comparaions](https://docs.google.com/presentation/d/19H8xYJS7rIZoEzLARjIVbxBDWFfIvxRuah2aXqljfmg/edit?usp=sharing)
 
 ### Fihce POC
 Voici le lien vers la fiche POC (en cours)
