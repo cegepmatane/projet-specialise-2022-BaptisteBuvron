@@ -7,4 +7,15 @@ Application React-Native pour le site internet [www.seeiss.com](www.seeiss.com)
 * [Baptiste Buvron](https://github.com/BaptisteBuvron)
 
 ## Dossiers
-Voici le lien vers la [fiche de lancement Kickoff du projet](https://drive.google.com/file/d/1xeZQRMDENHZXfuMHtFJy2mLnFhPJ8L7X/view?usp=sharing)
+
+### Fiche de lancement kickoff
+Voici le lien vers la [fiche de lancement Kickoff du projet](https://docs.google.com/document/d/1v8cDOX77Kxkcqmp9VnuXRLi36eiy0RDUsld0MiUZu4I/edit?usp=sharing)
+
+### Recherches successives
+Voici le lien vers la [fiche de recherches successives](https://docs.google.com/presentation/d/1HfUESV6LpRq6pl4fzoU8J6BGbMtSDdoT0ULGW-u99Ks/edit?usp=sharing)
+
+### Grilles de comparaison
+Voici le lien vers les grilles de comparaions (en cours)
+
+### Fihce POC
+Voici le lien vers la fiche POC (en cours)
