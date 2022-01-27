@@ -1,6 +1,6 @@
 # projet-specialise-2022-BaptisteBuvron
 
-Application React-Native pour le site internet [www.seeiss.com](www.seeiss.com)
+Application React-Native pour le site internet [www.seeiss.com](https://www.seeiss.com/)
 
 ## Etudiant
 
