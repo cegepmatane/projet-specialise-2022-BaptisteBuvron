@@ -1,18 +1,24 @@
 import React from "react";
-import Home from "./components/Home";
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {TailwindProvider} from 'tailwind-rn';
 import utilities from './tailwind.json';
+import Home from "./components/Home";
+import {store} from "./store";
+import {Provider} from 'react-redux'
 
 
 export default function App() {
     return (
-        <TailwindProvider utilities={utilities}>
-            <SafeAreaProvider>
-            <Home/>
-            </SafeAreaProvider>
+        <Provider store={store}>
+            <TailwindProvider utilities={utilities}>
+                <SafeAreaProvider>
+                    <Home/>
+                </SafeAreaProvider>
 
-        </TailwindProvider>
+            </TailwindProvider>
+        </Provider>
+
     );
 }
 
