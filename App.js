@@ -1,16 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React from "react";
+import Home from "./components/Home";
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import {TailwindProvider} from 'tailwind-rn';
+import utilities from './tailwind.json';
+
 
 export default function App() {
-  return (
-      <SafeAreaProvider>
-        <View>
-          <Text>SeeISS</Text>
-        </View>
-      </SafeAreaProvider>
+    return (
+        <TailwindProvider utilities={utilities}>
+            <SafeAreaProvider>
+            <Home/>
+            </SafeAreaProvider>
 
-  );
+        </TailwindProvider>
+    );
 }
 
 
