@@ -5,6 +5,7 @@ const initialState = {
         lat: 48.856614,
         lng: 	2.3522219,
         city: "Paris",
+        country: "France"
     },
 };
 

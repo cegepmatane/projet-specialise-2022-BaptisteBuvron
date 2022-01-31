@@ -6,14 +6,16 @@ import utilities from './tailwind.json';
 import Home from "./components/Home";
 import {store} from "./store";
 import {Provider} from 'react-redux'
+import {View} from "react-native";
 
 
 export default function App() {
+
     return (
         <Provider store={store}>
             <TailwindProvider utilities={utilities}>
                 <SafeAreaProvider>
-                    <Home/>
+                        <Home/>
                 </SafeAreaProvider>
 
             </TailwindProvider>
