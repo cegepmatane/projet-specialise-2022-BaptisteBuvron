@@ -17,7 +17,6 @@ export default function App() {
                 <SafeAreaProvider>
                         <Home/>
                 </SafeAreaProvider>
-
             </TailwindProvider>
         </Provider>
 
