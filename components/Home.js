@@ -6,10 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {GOOGLE_MAPS_APIKEY} from "@env";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 import {setLocation} from "../slices/locationSlice";
-import {Input} from "react-native-elements";
+import {Input} from "react-native-elements"
 import axios from "axios";
-import Toast from 'react-native-simple-toast';
-
+import Toast from "react-native-simple-toast"
 
 const Home = () => {
     const tw = useTailwind();
@@ -17,7 +16,6 @@ const Home = () => {
     const dispatch = useDispatch();
 
     let placeholder = "Choisissez une ville / " + location.city;
-    const ref = React.createRef();
 
     return (
 
@@ -79,44 +77,43 @@ const Home = () => {
                     enablePoweredByContainer={false}
                 />*/}
 
-                <Input ref={ref}
+                <Input
                     inputContainerStyle={tw('bg-white rounded-md px-4')}
-                       inputStyle={tw('text-sm')}
-                       placeholder={placeholder}
-                        onSubmitEditing={(event) => {
-                            let input = event.nativeEvent.text;
+                    inputStyle={tw('text-sm')}
+                    placeholder={placeholder}
+                    onSubmitEditing={(event) => {
+                        let input = event.nativeEvent.text;
 
-                            if (input.length > 0) {
-                                //call api
-                                let url = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(input);
-                                axios.get(url).then(response => {
-                                    let data = response.data;
-                                    if (data.length > 0) {
-                                        let location = data[0];
-                                        let array = location.display_name.split(",");
-                                        let country = array[array.length -1].trim();
-                                        let city = array[0];
-                                        dispatch(setLocation({
-                                            lat: location.lat,
-                                            lng: location.lon,
-                                            city: city,
-                                            country: country
-                                        }))
-                                        Toast.showWithGravity('La localisation à bien été enregistrée', Toast.LONG, Toast.TOP);
-                                    }
-                                })
-                            }
-                        }}
+                        if (input.length > 0) {
+                            //call api
+                            let url = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(input);
+                            axios.get(url).then(response => {
+                                let data = response.data;
+                                if (data.length > 0) {
+                                    let location = data[0];
+                                    let array = location.display_name.split(",");
+                                    let country = array[array.length - 1].trim();
+                                    let city = array[0];
+                                    dispatch(setLocation({
+                                        lat: location.lat,
+                                        lng: location.lon,
+                                        city: city,
+                                        country: country
+                                    }))
+                                    Toast.showWithGravity('La localisation à bien été enregistrée', Toast.LONG, Toast.TOP);
+                                }
+                            })
+                        }
+                    }}
                 />
 
 
                 <Text style={tw('text-center')}>Les passages depuis :
-                <Text style={tw('font-bold')}> {location.city}</Text>
+                    <Text style={tw('font-bold')}>{location.city}</Text>
                 </Text>
 
 
             </View>
-
 
 
         </SafeAreaView>
