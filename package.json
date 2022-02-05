@@ -32,7 +32,7 @@
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",
-    "tailwind-rn": "^4.0.1"
+    "twrnc": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

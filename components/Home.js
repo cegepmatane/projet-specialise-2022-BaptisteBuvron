@@ -1,7 +1,6 @@
 import React from "react";
 import {View, Text, ImageBackground} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useTailwind} from "tailwind-rn";
 import {useDispatch, useSelector} from "react-redux";
 import {GOOGLE_MAPS_APIKEY} from "@env";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
@@ -9,9 +8,10 @@ import {setLocation} from "../slices/locationSlice";
 import {Input} from "react-native-elements"
 import axios from "axios";
 import Toast from "react-native-simple-toast"
+import ListPassages from "./ListPassages";
+import tw from 'twrnc';
 
 const Home = () => {
-    const tw = useTailwind();
     const location = useSelector(state => state.location.location);
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const Home = () => {
     return (
 
 
-        <SafeAreaView style={tw('h-full bg-gray-100')}>
+        <SafeAreaView style={tw`h-full bg-gray-100`}>
 
             <ImageBackground
                 source={require('../assets/images/iss.webp')}
@@ -29,9 +29,9 @@ const Home = () => {
                     flex: 0,
                     justifyContent: "center"
                 }}>
-                <View style={tw('pt-12 items-center mb-4')}>
-                    <View style={tw('bg-blue-50 px-3 py-1 rounded-full')}>
-                        <Text style={tw('text-blue-900 font-bold text-3xl')}>
+                <View style={tw`pt-12 items-center mb-4`}>
+                    <View style={tw`bg-blue-50 px-3 py-1 rounded-full`}>
+                        <Text style={tw`text-blue-900 font-bold text-3xl`}>
                             See ISS
                         </Text>
 
@@ -40,7 +40,7 @@ const Home = () => {
             </ImageBackground>
 
 
-            <View style={tw('h-auto mx-4 my-4')}>
+            <View style={tw`h-auto mx-4 my-4`}>
                 {/*<GooglePlacesAutocomplete
                     styles={
                         {
@@ -78,8 +78,8 @@ const Home = () => {
                 />*/}
 
                 <Input
-                    inputContainerStyle={tw('bg-white rounded-md px-4')}
-                    inputStyle={tw('text-sm')}
+                    inputContainerStyle={tw`bg-white rounded-md px-4`}
+                    inputStyle={tw`text-sm`}
                     placeholder={placeholder}
                     onSubmitEditing={(event) => {
                         let input = event.nativeEvent.text;
@@ -100,7 +100,7 @@ const Home = () => {
                                         city: city,
                                         country: country
                                     }))
-                                    Toast.showWithGravity('La localisation à bien été enregistrée', Toast.LONG, Toast.TOP);
+                                    Toast.showWithGravity('La localisation à bien été enregistrée', Toast.LONG, Toast.BOTTOM);
                                 }
                             })
                         }
@@ -108,12 +108,16 @@ const Home = () => {
                 />
 
 
-                <Text style={tw('text-center')}>Les passages depuis :
-                    <Text style={tw('font-bold')}>{location.city}</Text>
+                <Text style={tw`text-center`}>Les passages depuis :
+                    <Text style={tw`font-bold`}> {location.city}</Text>
                 </Text>
+
+                <ListPassages city={location.city}/>
+
 
 
             </View>
+
 
 
         </SafeAreaView>
