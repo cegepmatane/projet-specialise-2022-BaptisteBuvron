@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, ImageBackground} from 'react-native';
+import {View, Text, ImageBackground, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from "react-redux";
 import {GOOGLE_MAPS_APIKEY} from "@env";
@@ -10,6 +10,7 @@ import axios from "axios";
 import Toast from "react-native-simple-toast"
 import ListPassages from "./ListPassages";
 import tw from 'twrnc';
+
 
 const Home = () => {
     const location = useSelector(state => state.location.location);
@@ -40,7 +41,7 @@ const Home = () => {
             </ImageBackground>
 
 
-            <View style={tw`h-auto mx-4 my-4`}>
+            <View style={tw`mx-4 my-4 flex-1`}>
                 {/*<GooglePlacesAutocomplete
                     styles={
                         {
@@ -83,23 +84,22 @@ const Home = () => {
                     placeholder={placeholder}
                     onSubmitEditing={(event) => {
                         let input = event.nativeEvent.text;
-
                         if (input.length > 0) {
                             //call api
                             let url = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(input);
                             axios.get(url).then(response => {
                                 let data = response.data;
                                 if (data.length > 0) {
-                                    let location = data[0];
-                                    let array = location.display_name.split(",");
+                                    let locationData = data[0];
+                                    let array = locationData.display_name.split(",");
                                     let country = array[array.length - 1].trim();
                                     let city = array[0];
-                                    dispatch(setLocation({
-                                        lat: location.lat,
-                                        lng: location.lon,
+                                   dispatch(setLocation({
+                                        lat: locationData.lat,
+                                        lng: locationData.lon,
                                         city: city,
                                         country: country
-                                    }))
+                                    }));
                                     Toast.showWithGravity('La localisation à bien été enregistrée', Toast.LONG, Toast.BOTTOM);
                                 }
                             })
@@ -108,11 +108,13 @@ const Home = () => {
                 />
 
 
-                <Text style={tw`text-center`}>Les passages depuis :
+                <Text style={tw`text-center my-3`}>Les passages depuis :
                     <Text style={tw`font-bold`}> {location.city}</Text>
                 </Text>
 
-                <ListPassages city={location.city}/>
+                    <ListPassages location={location}/>
+
+
 
 
 
@@ -123,5 +125,6 @@ const Home = () => {
         </SafeAreaView>
     );
 };
+
 
 export default Home;

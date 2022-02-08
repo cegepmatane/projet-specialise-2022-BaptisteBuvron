@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
-import {ActivityIndicator, Text, View} from "react-native";
+import React from "react";
+import {ActivityIndicator, FlatList, View} from "react-native";
 import tw from "twrnc";
-
+import axios from "axios";
+import {ListItem} from 'react-native-elements'
 
 export default class ListPassages extends React.Component {
 
@@ -10,40 +11,91 @@ export default class ListPassages extends React.Component {
         super();
         this.state = {
             data: null,
-            city: props.city
+            location: props.location
         };
+        this.getDataApi();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.city !== this.props.city) {
-            this.setState({city: this.props.city});
+    getDataApi() {
+        let lat = this.state.location.lat;
+        let lng = this.state.location.lng;
+        let url = "https://seeiss.com/api/passes?lat=" + encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lng) + "&day=15&lang=fr";
+        axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            this.setState({
+                    data: response.data
+                }
+            );
+        });
+
+    }
+
+
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.location !== this.props.location) {
+            await this.setState({location: this.props.location});
+            await this.setState({data: null});
+            this.getDataApi();
         }
     }
 
 
     render() {
-        if (!this.state.data){
+        if (!this.state.data) {
             return this.listPassagesLoading();
-        }
-        else {
-            return (
-                <Text>Passages au dessus de {this.state.city} : </Text>
-            );
+        } else {
+            return this.listPassages();
         }
 
     }
 
     listPassagesLoading = () => {
-        this.setState({
-                data: "Bonjour"
-            }
-        );
         return (
             <View style={tw`my-4`}>
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size="large" color="#0000ff"/>
             </View>
         );
     };
+
+    listPassages = () => {
+        return (
+
+                    <FlatList
+                        keyExtractor={this.keyExtractor}
+                        data={this.state.data}
+                        renderItem={this.renderItem}
+                        nestedScrollEnabled={true}
+                    />
+
+        )
+    }
+
+    keyExtractor = (item, index) => index;
+
+    renderItem = ({item}) => (
+        <ListItem bottomDivider>
+            <ListItem.Content>
+                <ListItem.Title>{this.utcToLocal(item.utcStart, item.timeZone)}</ListItem.Title>
+                <ListItem.Subtitle>Magnitude : {item.magnitude}</ListItem.Subtitle>
+            </ListItem.Content>
+            <ListItem.Chevron/>
+        </ListItem>
+    )
+
+    utcToLocal = (utcDate, timeZone) => {
+        //timestamp to date with timezone
+        let date =  new Date(utcDate*1000);
+        /*TODO FIX timeZone problem*/
+        return date.toLocaleString();
+/*
+        date.setHours(date.getHours() + 1);
+*/
+
+    }
 
 }
 
