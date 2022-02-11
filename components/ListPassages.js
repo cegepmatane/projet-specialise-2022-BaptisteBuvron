@@ -3,6 +3,8 @@ import {ActivityIndicator, FlatList, View} from "react-native";
 import tw from "twrnc";
 import axios from "axios";
 import {ListItem} from 'react-native-elements'
+import moment from "moment";
+import "moment-timezone";
 
 export default class ListPassages extends React.Component {
 
@@ -88,9 +90,8 @@ export default class ListPassages extends React.Component {
 
     utcToLocal = (utcDate, timeZone) => {
         //timestamp to date with timezone
-        let date =  new Date(utcDate*1000);
-        /*TODO FIX timeZone problem*/
-        return date.toLocaleString();
+        return moment(utcDate*1000).tz(timeZone).format("DD/MM/YYYY HH:mm");
+
 /*
         date.setHours(date.getHours() + 1);
 */
