@@ -6,6 +6,8 @@ import {ListItem} from 'react-native-elements'
 import moment from "moment";
 import "moment-timezone";
 
+
+
 export default class ListPassages extends React.Component {
 
 
@@ -79,7 +81,9 @@ export default class ListPassages extends React.Component {
     keyExtractor = (item, index) => index;
 
     renderItem = ({item}) => (
-        <ListItem bottomDivider>
+        <ListItem bottomDivider button onPress={() => this.props.navigation.navigate('DetailsPassage',{
+            passage : item
+        })}>
             <ListItem.Content>
                 <ListItem.Title>{this.utcToLocal(item.utcStart, item.timeZone)}</ListItem.Title>
                 <ListItem.Subtitle>Magnitude : {item.magnitude}</ListItem.Subtitle>
@@ -87,6 +91,7 @@ export default class ListPassages extends React.Component {
             <ListItem.Chevron/>
         </ListItem>
     )
+
 
     utcToLocal = (utcDate, timeZone) => {
         //timestamp to date with timezone
@@ -99,6 +104,5 @@ export default class ListPassages extends React.Component {
     }
 
 }
-
 
 
