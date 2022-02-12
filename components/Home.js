@@ -12,7 +12,7 @@ import ListPassages from "./ListPassages";
 import tw from 'twrnc';
 
 
-const Home = () => {
+const Home = ({navigation}) => {
     const location = useSelector(state => state.location.location);
     const dispatch = useDispatch();
 
@@ -112,7 +112,7 @@ const Home = () => {
                     <Text style={tw`font-bold`}> {location.city}</Text>
                 </Text>
 
-                    <ListPassages location={location}/>
+                    <ListPassages location={location} navigation={navigation}/>
 
 
 
