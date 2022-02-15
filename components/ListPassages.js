@@ -82,7 +82,8 @@ export default class ListPassages extends React.Component {
 
     renderItem = ({item}) => (
         <ListItem bottomDivider button onPress={() => this.props.navigation.navigate('DetailsPassage',{
-            passage : item
+            passage : item,
+            location : this.state.location
         })}>
             <ListItem.Content>
                 <ListItem.Title>{this.utcToLocal(item.utcStart, item.timeZone)}</ListItem.Title>
