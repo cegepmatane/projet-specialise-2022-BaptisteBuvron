@@ -95,8 +95,8 @@ const Home = ({navigation}) => {
                                     let country = array[array.length - 1].trim();
                                     let city = array[0];
                                    dispatch(setLocation({
-                                        lat: locationData.lat,
-                                        lng: locationData.lon,
+                                        lat:  parseFloat(locationData.lat),
+                                        lng: parseFloat(locationData.lon),
                                         city: city,
                                         country: country
                                     }));
