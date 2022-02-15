@@ -5,7 +5,7 @@ import axios from "axios";
 import {ListItem} from 'react-native-elements'
 import moment from "moment";
 import "moment-timezone";
-
+import Passage from "../Model/Passage";
 
 
 export default class ListPassages extends React.Component {
@@ -30,8 +30,13 @@ export default class ListPassages extends React.Component {
                 'Accept': 'application/json'
             }
         }).then(response => {
+            let data = response.data;
+            let passages = [];
+            for (let i = 0; i < data.length; i++) {
+                passages.push(new Passage(data[i].utcStart, data[i].utcMax, data[i].utcEnd, data[i].azStartDegres, data[i].azMaxDegres, data[i].azEndDegres, data[i].azStartDirection, data[i].azMaxDirection, data[i].azEndDirection, data[i].startEl, data[i].maxEl, data[i].endEl, data[i].magnitude, data[i].duration, data[i].timeZone, data[i].passeDetails));
+            }
             this.setState({
-                    data: response.data
+                    data: passages
                 }
             );
         });
@@ -68,12 +73,12 @@ export default class ListPassages extends React.Component {
     listPassages = () => {
         return (
 
-                    <FlatList
-                        keyExtractor={this.keyExtractor}
-                        data={this.state.data}
-                        renderItem={this.renderItem}
-                        nestedScrollEnabled={true}
-                    />
+            <FlatList
+                keyExtractor={this.keyExtractor}
+                data={this.state.data}
+                renderItem={this.renderItem}
+                nestedScrollEnabled={true}
+            />
 
         )
     }
@@ -81,12 +86,16 @@ export default class ListPassages extends React.Component {
     keyExtractor = (item, index) => index;
 
     renderItem = ({item}) => (
-        <ListItem bottomDivider button onPress={() => this.props.navigation.navigate('DetailsPassage',{
-            passage : item,
-            location : this.state.location
-        })}>
+        <ListItem bottomDivider button onPress={() => this.props.navigation.navigate('DetailsPassage', {
+            passage: item,
+            location: this.state.location
+        })}
+                  containerStyle={{backgroundColor: item.backgroundColor}}
+
+
+        >
             <ListItem.Content>
-                <ListItem.Title>{this.utcToLocal(item.utcStart, item.timeZone)}</ListItem.Title>
+                <ListItem.Title>{item.utcToLocal()}</ListItem.Title>
                 <ListItem.Subtitle>Magnitude : {item.magnitude}</ListItem.Subtitle>
             </ListItem.Content>
             <ListItem.Chevron/>
@@ -94,15 +103,7 @@ export default class ListPassages extends React.Component {
     )
 
 
-    utcToLocal = (utcDate, timeZone) => {
-        //timestamp to date with timezone
-        return moment(utcDate*1000).tz(timeZone).format("DD/MM/YYYY HH:mm");
 
-/*
-        date.setHours(date.getHours() + 1);
-*/
-
-    }
 
 }
 
