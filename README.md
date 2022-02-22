@@ -22,5 +22,8 @@ Voici le lien vers la [fiche de recherches successives](https://docs.google.com/
 ### Grilles de comparaison
 Voici le lien vers les [grilles de comparaions](https://docs.google.com/presentation/d/19H8xYJS7rIZoEzLARjIVbxBDWFfIvxRuah2aXqljfmg/edit?usp=sharing)
 
-### Fihce POC
+### Fiche POC
 Voici le lien vers la [fiche POC](https://docs.google.com/document/d/1w9B2XEsez5YCKeO7-TKQEUxlVpTfnXlUU6Z248-5c2A/edit?usp=sharing)
+
+### Analyse Fonctionnelle
+Voici le lien vers l'[Analyse Fonctionnelle](https://docs.google.com/presentation/d/1USqU59M4HdkLuaLTnNuMarrvedCq93VAKqXVbRZBlWw/edit?usp=sharing)
