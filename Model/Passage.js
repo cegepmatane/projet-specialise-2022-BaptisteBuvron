@@ -26,10 +26,10 @@ export default class Passage {
 
     selectBackgroundColor(){
         if (this.magnitude < -3) {
-            this.backgroundColor = "#198754";
+            this.backgroundColor = "#6AE4AB";
         }
         else if (this.magnitude <- 2){
-            this.backgroundColor = "#ffc107";
+            this.backgroundColor = "#FFE082";
         }
     }
 
