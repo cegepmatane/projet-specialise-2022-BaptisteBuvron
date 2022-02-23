@@ -21,6 +21,9 @@ export default class Passage {
         this.timeZone = timeZone;
         this.passeDetails = passeDetails;
         this.backgroundColor = "#fff";
+        this.hourStart = moment(utcStart*1000).tz(timeZone).format("HH:mm:ss");
+        this.hourMax = moment(utcMax*1000).tz(timeZone).format("HH:mm:ss");
+        this.hourEnd = moment(utcEnd*1000).tz(timeZone).format("HH:mm:ss");
         this.selectBackgroundColor();
     }
 
@@ -35,13 +38,13 @@ export default class Passage {
 
     utcToLocal() {
         //timestamp to date with timezone
-        return moment(this.utcStart * 1000).tz(this.timeZone).format("DD/MM/YYYY HH:mm");
+        return moment(this.utcStart * 1000).tz(this.timeZone).format("DD/MM HH:mm");
 
         /*
                 date.setHours(date.getHours() + 1);
         */
-
     }
+
 
 
 }

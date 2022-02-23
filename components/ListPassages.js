@@ -1,5 +1,5 @@
 import React from "react";
-import {ActivityIndicator, FlatList, View} from "react-native";
+import {ActivityIndicator, FlatList, Text, View} from "react-native";
 import tw from "twrnc";
 import axios from "axios";
 import {ListItem} from 'react-native-elements'
@@ -95,14 +95,17 @@ export default class ListPassages extends React.Component {
 
         >
             <ListItem.Content>
-                <ListItem.Title>{item.utcToLocal()}</ListItem.Title>
-                <ListItem.Subtitle>Magnitude : {item.magnitude}</ListItem.Subtitle>
+                <ListItem.Title style={tw`font-bold`}>{item.utcToLocal()}</ListItem.Title>
+                <ListItem.Content>
+                    <View style={tw`flex flex-row flex-wrap justify-center`}>
+                        <Text style={tw`w-50`}>Mag {item.magnitude}</Text>
+                        <Text>Durée  {item.duration} (s)</Text>
+                    </View>
+                </ListItem.Content>
             </ListItem.Content>
             <ListItem.Chevron/>
         </ListItem>
     )
-
-
 
 
 }

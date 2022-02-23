@@ -41,7 +41,7 @@ const Home = ({navigation}) => {
             </ImageBackground>
 
 
-            <View style={tw`mx-4 my-4 flex-1`}>
+            <View style={tw`mx-3 my-4 flex-1`}>
                 {/*<GooglePlacesAutocomplete
                     styles={
                         {
