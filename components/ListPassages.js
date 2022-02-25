@@ -3,7 +3,6 @@ import {ActivityIndicator, FlatList, Text, View} from "react-native";
 import tw from "twrnc";
 import axios from "axios";
 import {ListItem} from 'react-native-elements'
-import moment from "moment";
 import "moment-timezone";
 import Passage from "../Model/Passage";
 
@@ -17,7 +16,8 @@ export default class ListPassages extends React.Component {
             data: null,
             location: props.location
         };
-        this.getDataApi();
+        this.getDataJson();
+        /*this.getDataApi();*/
     }
 
     getDataApi() {
@@ -43,12 +43,25 @@ export default class ListPassages extends React.Component {
 
     }
 
+    getDataJson(){
+        let data = require('../passes.json');
+        let passages = [];
+        for (let i = 0; i < data.length; i++) {
+            passages.push(new Passage(data[i].utcStart, data[i].utcMax, data[i].utcEnd, data[i].azStartDegres, data[i].azMaxDegres, data[i].azEndDegres, data[i].azStartDirection, data[i].azMaxDirection, data[i].azEndDirection, data[i].startEl, data[i].maxEl, data[i].endEl, data[i].magnitude, data[i].duration, data[i].timeZone, data[i].passeDetails));
+        }
+        this.setState({
+                data: passages
+            }
+        );
+    }
+
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.location !== this.props.location) {
             await this.setState({location: this.props.location});
             await this.setState({data: null});
-            this.getDataApi();
+            /*this.getDataApi();*/
+            this.getDataJson();
         }
     }
 
