@@ -16,8 +16,8 @@ export default class ListPassages extends React.Component {
             data: null,
             location: props.location
         };
-        this.getDataJson();
-        /*this.getDataApi();*/
+        /*this.getDataJson();*/
+        this.getDataApi();
     }
 
     getDataApi() {
@@ -60,8 +60,8 @@ export default class ListPassages extends React.Component {
         if (prevProps.location !== this.props.location) {
             await this.setState({location: this.props.location});
             await this.setState({data: null});
-            /*this.getDataApi();*/
-            this.getDataJson();
+            this.getDataApi();
+            /*this.getDataJson();*/
         }
     }
 
