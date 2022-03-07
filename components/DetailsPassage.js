@@ -4,7 +4,7 @@ import tw from "twrnc";
 import MapView, {Marker, Polyline} from "react-native-maps";
 import moment from "moment";
 import {Col, Row, Rows, Table, TableWrapper} from "react-native-table-component";
-
+import countdown from "countdown";
 
 export default class DetailsPassage extends React.Component {
 
@@ -40,6 +40,9 @@ export default class DetailsPassage extends React.Component {
 
 
 
+
+
+
         return (
                <View>
                    <MapView
@@ -61,6 +64,8 @@ export default class DetailsPassage extends React.Component {
                        />
                    </MapView>
                    <View style={styles.container}>
+                       <Text>Passage dans {countdown(new Date(moment().tz(this.state.passage.timeZone)),new Date(this.state.passage.exactStart.toString()), countdown.DAYS | countdown.HOURS | countdown.MINUTES,).toLocaleString()} </Text>
+                       <Text style={tw`mb-2`}>Information sur le passage : </Text>
                        <Table borderStyle={{ borderWidth: 1 }}>
                            <Row
                                data={CONTENT.tableHead}
