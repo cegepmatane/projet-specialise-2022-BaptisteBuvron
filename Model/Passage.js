@@ -24,6 +24,7 @@ export default class Passage {
         this.hourStart = moment(utcStart*1000).tz(timeZone).format("HH:mm:ss");
         this.hourMax = moment(utcMax*1000).tz(timeZone).format("HH:mm:ss");
         this.hourEnd = moment(utcEnd*1000).tz(timeZone).format("HH:mm:ss");
+        this.exactStart = moment(utcStart*1000).tz(timeZone);
         this.selectBackgroundColor();
     }
 
