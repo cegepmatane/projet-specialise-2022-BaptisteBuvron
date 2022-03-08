@@ -19,6 +19,12 @@ export default class ListPassages extends React.Component {
             location: props.location
         };
         /*this.getDataJson();*/
+        countdown.setLabels(
+            ' milliseconde| seconde| minute| heure| jour| semaine| mois| année| décennie| siècle| millénaire',
+            ' millisecondes| secondes| minutes| heures| jours| semaines| mois| années| décennies| siècles| millénaires',
+            ' et ',
+            ', ',
+            'maintenant');
         this.getDataApi();
     }
 
@@ -46,8 +52,7 @@ export default class ListPassages extends React.Component {
                 this.interval = setInterval(() => this.setState({
                     timer: countdown(new Date(moment().tz(this.state.data[0].timeZone)), new Date(this.state.data[0].exactStart.toString()), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS).toLocaleString()
                 }), 1000);
-            }
-            else {
+            } else {
                 this.setState({
                     timer: "Pas de passages dans les 15 prochains jours"
                 });
@@ -57,7 +62,7 @@ export default class ListPassages extends React.Component {
 
     }
 
-    getDataJson(){
+    getDataJson() {
         let data = require('../passes.json');
         let passages = [];
         for (let i = 0; i < data.length; i++) {
@@ -82,8 +87,6 @@ export default class ListPassages extends React.Component {
             /*this.getDataJson();*/
         }
     }
-
-
 
 
     render() {
@@ -134,7 +137,7 @@ export default class ListPassages extends React.Component {
                 <ListItem.Content>
                     <View style={tw`flex flex-row flex-wrap justify-center`}>
                         <Text style={tw`w-50`}>Mag {item.magnitude}</Text>
-                        <Text>Durée  {item.duration} (s)</Text>
+                        <Text>Durée {item.duration} (s)</Text>
                     </View>
                 </ListItem.Content>
             </ListItem.Content>

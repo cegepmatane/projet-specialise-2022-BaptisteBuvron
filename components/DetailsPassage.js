@@ -19,7 +19,8 @@ export default class DetailsPassage extends React.Component {
 
 
     componentDidMount() {
-        this.interval = setInterval(() => this.setState({timer: countdown(new Date(moment().tz(this.state.passage.timeZone)), new Date(this.state.passage.exactStart.toString()), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS).toLocaleString()
+        this.interval = setInterval(() => this.setState({
+            timer: countdown(new Date(moment().tz(this.state.passage.timeZone)), new Date(this.state.passage.exactStart.toString()), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS).toLocaleString()
         }), 1000);
 
     }
@@ -49,13 +50,6 @@ export default class DetailsPassage extends React.Component {
                 [Math.round(this.state.passage.startEl) + "°", Math.round(this.state.passage.maxEl) + "°", Math.round(this.state.passage.endEl) + "°"],
             ],
         };
-
-        countdown.setLabels(
-            ' milliseconde| seconde| minute| heure| jour| semaine| mois| année| décennie| siècle| millénaire',
-            ' millisecondes| secondes| minutes| heures| jours| semaines| mois| années| décennies| siècles| millénaires',
-            ' et ',
-            ', ',
-            'maintenant');
 
 
         return (

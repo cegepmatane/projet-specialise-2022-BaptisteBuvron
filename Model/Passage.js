@@ -21,18 +21,17 @@ export default class Passage {
         this.timeZone = timeZone;
         this.passeDetails = passeDetails;
         this.backgroundColor = "#fff";
-        this.hourStart = moment(utcStart*1000).tz(timeZone).format("HH:mm:ss");
-        this.hourMax = moment(utcMax*1000).tz(timeZone).format("HH:mm:ss");
-        this.hourEnd = moment(utcEnd*1000).tz(timeZone).format("HH:mm:ss");
-        this.exactStart = moment(utcStart*1000).tz(timeZone);
+        this.hourStart = moment(utcStart * 1000).tz(timeZone).format("HH:mm:ss");
+        this.hourMax = moment(utcMax * 1000).tz(timeZone).format("HH:mm:ss");
+        this.hourEnd = moment(utcEnd * 1000).tz(timeZone).format("HH:mm:ss");
+        this.exactStart = moment(utcStart * 1000).tz(timeZone);
         this.selectBackgroundColor();
     }
 
-    selectBackgroundColor(){
-        if (this.magnitude < -3) {
+    selectBackgroundColor() {
+        if (this.magnitude <= -3) {
             this.backgroundColor = "#6AE4AB";
-        }
-        else if (this.magnitude <- 2){
+        } else if (this.magnitude <= -2) {
             this.backgroundColor = "#FFE082";
         }
     }
@@ -40,12 +39,7 @@ export default class Passage {
     utcToLocal() {
         //timestamp to date with timezone
         return moment(this.utcStart * 1000).tz(this.timeZone).format("DD/MM HH:mm");
-
-        /*
-                date.setHours(date.getHours() + 1);
-        */
     }
-
 
 
 }
