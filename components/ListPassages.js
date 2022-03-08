@@ -106,7 +106,7 @@ export default class ListPassages extends React.Component {
     listPassages = () => {
         return (
             <View>
-                <Text style={tw`mb-2`}>Prochain passage dans : <Text style={tw`font-bold`}>{this.state.timer}</Text></Text>
+                <Text style={tw`mb-2`}>Prochain passage : <Text style={tw`font-bold`}>{this.state.timer}</Text></Text>
                 <FlatList
                     keyExtractor={this.keyExtractor}
                     data={this.state.data}
