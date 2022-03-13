@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from "react-redux";
 import {GOOGLE_MAPS_APIKEY} from "@env";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
-import {setLocation} from "../slices/locationSlice";
+import locationReducer, {setLocation} from "../slices/locationSlice";
 import {Input} from "react-native-elements"
 import axios from "axios";
 import Toast from "react-native-simple-toast"
@@ -13,9 +13,8 @@ import tw from 'twrnc';
 
 
 const Home = ({navigation}) => {
-    const location = useSelector(state => state.location.location);
+    const location = useSelector(state => state.locationReducer.location);
     const dispatch = useDispatch();
-
     let placeholder = "Choisissez une ville / " + location.city;
 
     return (
