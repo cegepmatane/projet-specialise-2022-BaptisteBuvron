@@ -1,5 +1,5 @@
-import React from "react";
-import {View, Text, ImageBackground, ScrollView} from 'react-native';
+import React, {useState} from "react";
+import {View, Text, ImageBackground, ScrollView, Button} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from "react-redux";
 import {GOOGLE_MAPS_APIKEY} from "@env";
@@ -10,7 +10,26 @@ import axios from "axios";
 import Toast from "react-native-simple-toast"
 import ListPassages from "./ListPassages";
 import tw from 'twrnc';
+import * as Notifications from 'expo-notifications';
 
+Notifications.setNotificationHandler({
+    handleNotification: async () => {
+        return {
+            shouldShowAlert: true
+        }}
+})
+
+
+const triggerNotifications = async () => {
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            title: "You’ve got mail! 📬",
+            body: "Here is the notification body",
+            data: { data: "goes here" },
+        },
+        trigger: { seconds: 2 },
+    });
+}
 
 const Home = ({navigation}) => {
     const location = useSelector(state => state.locationReducer.location);
@@ -39,6 +58,9 @@ const Home = ({navigation}) => {
                 </View>
             </ImageBackground>
 
+            <View>
+                <Button onPress={triggerNotifications} title="Trigger Local Notifications" color="#841584" accessibilityLabel="Trigger Local Notifications"/>
+            </View>
 
             <View style={tw`mx-3 my-4 flex-1`}>
                 {/*<GooglePlacesAutocomplete
