@@ -109,13 +109,22 @@ export default class ListPassages extends React.Component {
     listPassages = () => {
         return (
             <View>
-                <Text style={tw`mb-2`}>Prochain passage : <Text style={tw`font-bold`}>{this.state.timer}</Text></Text>
+                <Text style={tw`mb-2`}>Passage dans <Text style={tw`font-bold`}>{this.state.timer}</Text></Text>
+{/*
+            TODO: Afficher les passages avec un data Map
+*/}
+                {/*{
+                    data.map((item)=> <Somthing item={item}/>)
+                }*/}
                 <FlatList
                     keyExtractor={this.keyExtractor}
                     data={this.state.data}
                     renderItem={this.renderItem}
                     nestedScrollEnabled={true}
                 />
+                <Text style={tw`text-center mt-5`}>
+                    Data from : www.seeiss.com
+                </Text>
             </View>
 
         )
