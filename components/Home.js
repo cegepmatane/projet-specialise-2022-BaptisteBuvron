@@ -10,28 +10,13 @@ import axios from "axios";
 import Toast from "react-native-simple-toast";
 import ListPassages from "./ListPassages";
 import tw from "twrnc";
-import * as Notifications from "expo-notifications";
 
-Notifications.setNotificationHandler({
-    handleNotification: async () => {
-        return {
-            shouldShowAlert: true,
-        };
-    },
-});
 
-const triggerNotifications = async () => {
-    await Notifications.scheduleNotificationAsync({
-        content: {
-            title: "Bientôt un passage de l'ISS 🛰️",
-            body: "Préparez-vous à observer un passage de l'ISS"
-        },
-        trigger: {seconds: 2},
-    });
-};
+
 
 const Home = ({navigation}) => {
     const location = useSelector((state) => state.locationReducer.location);
+    const notification = useSelector((state) => state.notificationReducer.notification);
     const dispatch = useDispatch();
     let placeholder = "Choisissez une ville / " + location.city;
 
@@ -51,15 +36,6 @@ const Home = ({navigation}) => {
                         </View>
                     </View>
                 </ImageBackground>
-
-                <View>
-                    <Button
-                        onPress={triggerNotifications}
-                        title="Trigger Local Notifications"
-                        color="#841584"
-                        accessibilityLabel="Trigger Local Notifications"
-                    />
-                </View>
 
                 <View style={tw`mx-3 my-4`}>
 
@@ -106,7 +82,7 @@ const Home = ({navigation}) => {
                         <Text style={tw`font-bold`}> {location.city}</Text>
                     </Text>
 
-                    <ListPassages location={location} navigation={navigation}/>
+                    <ListPassages location={location} navigation={navigation} notification={notification} dispatch={dispatch}/>
                 </View>
             </SafeAreaView>
         </ScrollView>

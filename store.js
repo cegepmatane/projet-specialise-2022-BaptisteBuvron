@@ -1,5 +1,6 @@
 import {applyMiddleware, combineReducers, configureStore, createStore} from '@reduxjs/toolkit'
 import locationReducer from './slices/locationSlice'
+import notificationReducer from "./slices/NotificationSlice";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -9,7 +10,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    locationReducer: persistReducer(persistConfig, locationReducer)
+    locationReducer: persistReducer(persistConfig, locationReducer),
+    notificationReducer: persistReducer(persistConfig, notificationReducer),
 });
 
 export const store = createStore(rootReducer);
