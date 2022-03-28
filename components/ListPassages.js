@@ -7,6 +7,18 @@ import "moment-timezone";
 import Passage from "../Model/Passage";
 import countdown from "countdown";
 import moment from "moment";
+import { AsyncStorage } from 'react-native';
+import * as Notifications from "expo-notifications";
+import {useSelector} from "react-redux";
+import {setNotification} from "../slices/NotificationSlice";
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => {
+        return {
+            shouldShowAlert: true,
+        };
+    },
+});
 
 
 export default class ListPassages extends React.Component {
@@ -16,7 +28,9 @@ export default class ListPassages extends React.Component {
         super();
         this.state = {
             data: null,
-            location: props.location
+            location: props.location,
+            notification: props.notification,
+            dispatch: props.dispatch,
         };
         /*this.getDataJson();*/
         countdown.setLabels(
@@ -49,17 +63,40 @@ export default class ListPassages extends React.Component {
 
             });
             if (passages.length > 0 && this.state.data != null) {
-                this.interval = setInterval(() => this.setState({
-                    timer: countdown(new Date(moment().tz(this.state.data[0].timeZone)), new Date(this.state.data[0].exactStart.toString()), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS).toLocaleString()
-                }), 1000);
-            } else {
-                this.setState({
-                    timer: "Pas de passages dans les 15 prochains jours"
-                });
+                await this.setTimer();
+               this.interval = setInterval(() =>  this.setTimer(), 1000);
+               await this.setNotification();
             }
 
         });
 
+    }
+
+    async setTimer(){
+        let firstPassage = this.state.data[0];
+        this.setState({
+            timer: countdown(new Date(moment().tz(firstPassage.timeZone)), new Date(firstPassage.exactStart.toString()), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS).toLocaleString()
+        });
+    }
+
+    async setNotification() {
+        if (this.state.notification.identifier != null){
+            await Notifications.cancelScheduledNotificationAsync(this.state.notification.identifier);
+        }
+        const firstPassage = this.state.data[0];
+        const dateUTC = new Date(firstPassage.utcStart *1000);
+        const trigger = new Date(new Date(dateUTC.getTime()));
+        trigger.setMinutes(trigger.getMinutes() - 10);
+        const identifier = await Notifications.scheduleNotificationAsync({
+            content: {
+                title: "Bientôt un passage de l'ISS 🛰️",
+                body: "Préparez-vous à observer un passage de l'ISS dans 10 min."
+            },
+            trigger,
+        });
+        await this.state.dispatch(setNotification({
+            identifier: identifier
+        }))
     }
 
     getDataJson() {
@@ -107,18 +144,37 @@ export default class ListPassages extends React.Component {
     };
 
     listPassages = () => {
-        return (
-            <View>
-                <Text style={tw`mb-2`}>Prochain passage : <Text style={tw`font-bold`}>{this.state.timer}</Text></Text>
-                <FlatList
-                    keyExtractor={this.keyExtractor}
-                    data={this.state.data}
-                    renderItem={this.renderItem}
-                    nestedScrollEnabled={true}
-                />
-            </View>
+        if (this.state.data.length > 0){
+            return (
+                <View>
+                    <Text style={tw`mb-2`}>Passage dans <Text style={tw`font-bold`}>{this.state.timer}</Text></Text>
+                    {/*
+            TODO: Afficher les passages avec un data Map
+*/}
+                    {/*{
+                    data.map((item)=> <Somthing item={item}/>)
+                }*/}
+                    <FlatList
+                        keyExtractor={this.keyExtractor}
+                        data={this.state.data}
+                        renderItem={this.renderItem}
+                        nestedScrollEnabled={true}
+                    />
+                    <Text style={tw`text-center mt-5`}>
+                        Data from : www.seeiss.com
+                    </Text>
+                </View>
 
-        )
+            )
+        }
+        else {
+            return (
+                <View>
+                    <Text style={tw`font-bold text-center`}>Pas de passage dans les 15 prochains jours</Text>
+                </View>
+            )
+        }
+
     }
 
     keyExtractor = (item, index) => index;
