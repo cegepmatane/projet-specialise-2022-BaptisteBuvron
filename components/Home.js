@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, ImageBackground, ScrollView, Button} from "react-native";
+import {View, Text, ImageBackground, ScrollView, Button, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useDispatch, useSelector} from "react-redux";
 import {GOOGLE_MAPS_APIKEY} from "@env";
@@ -10,6 +10,7 @@ import axios from "axios";
 import Toast from "react-native-simple-toast";
 import ListPassages from "./ListPassages";
 import tw from "twrnc";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 
 
@@ -27,10 +28,16 @@ const Home = ({navigation}) => {
                     source={require("../assets/images/iss.webp")}
                     resizeMode="cover"
                     style={{
-                        flex: 0,
-                        justifyContent: "center",
+                        flex: 0
                     }}>
-                    <View style={tw`pt-12 items-center mb-4`}>
+                    <TouchableOpacity style={{
+                        alignItems: "flex-end",
+                        margin: 10
+                    }}>
+                        <FontAwesome5 name="bars" size={30} color="white"/>
+
+                    </TouchableOpacity>
+                  <View style={tw`items-center mb-4`}>
                         <View style={tw`bg-blue-50 px-3 py-1 rounded-full`}>
                             <Text style={tw`text-blue-900 font-bold text-3xl`}>See ISS</Text>
                         </View>

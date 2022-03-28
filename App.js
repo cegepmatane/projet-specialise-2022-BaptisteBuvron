@@ -3,7 +3,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {persistor, store} from "./store";
 import {Provider} from 'react-redux'
 import {AppRegistry} from 'react-native';
-import Navigation from "./components/Navigation";
+import Navigation from "./components/navigation/Navigation";
 import {PersistGate} from "redux-persist/integration/react";
 
 AppRegistry.registerComponent('main',() => App);
