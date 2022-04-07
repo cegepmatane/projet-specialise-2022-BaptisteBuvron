@@ -9,7 +9,7 @@ Application React-Native pour le site internet [www.seeiss.com](https://www.seei
 
 ## Présentation vidéo
 
-SeeISS est une App affichant les passage de la station internationale. [https://www.youtube.com/watch?v=OfNCHWrxfFA](Voyez la vidéo promotionnelle).
+SeeISS est une App affichant les passage de la station internationale. [Voyez la vidéo promotionnelle](https://www.youtube.com/watch?v=OfNCHWrxfFA).
 
 ## Etudiant
 
